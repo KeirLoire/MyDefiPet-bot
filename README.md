@@ -1,11 +1,15 @@
 <p align="center">
-    <a href="https://mydefipet.com/"><img src="https://play.mydefipet.com/assets/logos/logo.png" width="200" alt="MyDefiPet logo"/></a><br>
+    <img src="https://github.com/KeirLoire/MyDefiPet-bot/blob/main/img/logo.png?raw=true" width="200" alt="MyDefiBot logo"/><br>
+    <b style="font-size:25px">MyDefiBot (Keir Variant)</b><br>
     <a href="https://www.python.org/downloads/release/python-379/"><img src="https://img.shields.io/badge/python-3.7-00a0dc?label=python&style=flat&logo=python" alt="MyDefiPet logo"/></a>
-    <a href="https://keirloire.com"><img src="https://img.shields.io/website?label=KeirLoire.com&style=flat&url=https%3A%2F%2FKeirLoire.com" /></a>
 </p>
 
+## About
+
+This script uses OpenCV (Computer Vision with Python) and was originally created by @kyuubijay. Between the original, this version is modified to use RGB colors for reliable template matching and some of the features are removed.
+
 ## Prerequisites
-This bot requires prerequisites in order to run.
+This script requires prerequisites in order to run.
 
 - Python 3.7.9 or later.
 
@@ -17,4 +21,8 @@ This bot requires prerequisites in order to run.
 
 ## Limitations
 
-- Doesn't support handling for disconnections yet. This is ideal for people with good internet connection.
+Doesn't support handling for disconnections yet. This is ideal for people with good internet connection.
+
+## Disclaimer
+
+We are not responsible for any damages or loss upon use of this software. Use at your own risk.
