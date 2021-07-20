@@ -18,6 +18,7 @@ This script requires prerequisites in order to run.
 - Run `python main.py`
 - Leave your MyDefiPet game open, make sure you are zoomed out in the game.
 
+If you want the script to end, just press `CTRL + C`.
 
 ## Limitations
 

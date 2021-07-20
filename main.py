@@ -29,8 +29,9 @@ def plant_crops():
     if plots:
         click(plots[0])
         crop = detect(CROP)
-        for i in range(4):
-            click((crop[0][0] + 50, crop[0][1] + 120))
+        if crop:
+            for i in range(4):
+                click((crop[0][0] + 50, crop[0][1] + 120))
 
 def go_to_center():
     center = detect(Template.CENTER)
