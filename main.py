@@ -12,8 +12,9 @@ class Template(enum.Enum):
     CORN="img/templates/corn*.png"
 
 THRESHOLD = 0.6
-DELAY_PER_CLICK = 3
+DELAY_PER_CLICK = 0.5
 CROP = Template.CORN
+PLOT_COUNT = 5
 
 def click(p):
     x,y = p
@@ -34,9 +35,10 @@ def plant_crops():
     plots = detect(Template.PLOT)
     if plots:
         click(plots[0])
+        time.sleep(2)
         crop = detect(CROP)
         if crop:
-            for i in range(4):
+            for i in range(PLOT_COUNT):
                 click((crop[0][0] + 50, crop[0][1] + 120))
 
 def go_to_center():
@@ -53,26 +55,30 @@ def harvest_crops():
         click(harvest[0])
 
 def detect(template):
-    results = []
     template_path = template.value
     large_image = pyautogui.screenshot()
     large_image = cv2.cvtColor(numpy.array(large_image), cv2.COLOR_RGB2BGR)
 
+    # Get matched objects
+    matches = []
     for file in glob.glob(template_path):
         small_image = cv2.imread(file)
-        found = None
         height, width = small_image.shape[:-1]
 
         result = cv2.matchTemplate(large_image, small_image, cv2.TM_CCOEFF_NORMED)
 
         locations = numpy.where(result >= THRESHOLD)
 
-        mask = numpy.zeros(large_image.shape[:-1], numpy.uint8)
+        matches += zip(*locations[::-1])
 
-        for coordinate in zip(*locations[::-1]):
-            if mask[coordinate[1] + height//2, coordinate[0] + width//2] != 255:
-                mask[coordinate[1]:coordinate[1] + height, coordinate[0]:coordinate[0] + width] = 255
-                center = (coordinate[0] + width//2, coordinate[1] + height//2)
+    # Combine overlapping matched objects
+    results = []
+    mask = numpy.zeros(large_image.shape[:-1], numpy.uint8)
+
+    for match in matches:
+        if mask[match[1] + height//2, match[0] + width//2] != 255:
+                mask[match[1]:match[1] + height, match[0]:match[0] + width] = 255
+                center = (match[0] + width//2, match[1] + height//2)
                 results.append(center)
                 print(f'Found {template.name.lower()} at {center}.')
 
