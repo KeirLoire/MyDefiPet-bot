@@ -4,7 +4,8 @@ class Template(enum.Enum):
     COIN="img/templates/coin*.png"
     PLOT="img/templates/plot*.png"
     SHOVEL="img/templates/shovel*.png"
-    HARVEST="img/templates/harvest-all*.png"
+    HARVEST="img/templates/harvest_all*.png"
+    OK="img/templates/ok*.png"
     CENTER="img/templates/center*.png"
     POTATO="img/templates/potato*.png"
     WHEAT="img/templates/wheat*.png"
@@ -23,6 +24,11 @@ def collect_coins():
     coins = detect(Template.COIN)
     for coin in coins:
         click(coin)
+
+def handle_message():
+    message = detect(Template.OK)
+    if message:
+        click(message[0])
 
 def plant_crops():
     plots = detect(Template.PLOT)
@@ -73,7 +79,7 @@ def detect(template):
                 mask[coordinate[1]:coordinate[1] + height, coordinate[0]:coordinate[0] + width] = 255
                 center = (coordinate[0] + width//2, coordinate[1] + height//2)
                 results.append(center)
-                print(f'Found {template.name.lower()} at {center}...')
+                print(f'Found {template.name.lower()} at {center}.')
 
     return results
 
@@ -82,3 +88,4 @@ while(True):
     harvest_crops()
     plant_crops()
     go_to_center()
+    handle_message()
