@@ -52,16 +52,11 @@ def harvest_crops():
     if harvest: 
         click(harvest[0])
 
-def screenshot():
-    file_path = "img/temp.png"
-    image = pyautogui.screenshot()
-    cv2.imwrite(file_path, cv2.cvtColor(numpy.array(image), cv2.COLOR_RGB2BGR))
-    return file_path
-
 def detect(template):
     results = []
     template_path = template.value
-    large_image = cv2.imread(screenshot())
+    large_image = pyautogui.screenshot()
+    large_image = cv2.cvtColor(numpy.array(large_image), cv2.COLOR_RGB2BGR)
 
     for file in glob.glob(template_path):
         small_image = cv2.imread(file)
